@@ -1,21 +1,35 @@
-var btns = document.querySelectorAll('#book-list .delete');
+const list = document.querySelector('#book-list ul');
 
-Array.from(btns).forEach(function(btn){
-btn.addEventListener('click',function(e){
-
-    const li = e.target.parentElement;
-    li.parentNode.removeChild(li)
-
-    });
+//delete books
+list.addEventListener('click',function(e){
+    if(e.target.className == 'delete'){
+    const li = e.target.parentElement; 
+    list.removeChild(li)
+    }
 });
 
-const link = document.querySelector('#page-banner a');
+//add books-list
+const addForms = document.forms['add-book'];
+addForms.addEventListener('submit',function(e){
+    e.preventDefault();
+    const value = addForms.querySelector('input[type="text"]').value;
+    
+    //create elements
+    const li = document.createElement('li');
+    const bookName = document.createElement('span');
+    const deleteBtn = document.createElement('span');
 
-link.addEventListener('click',function(e){
-e.preventDefault();
-console.log('navigation to', e.target.textContent, 'was prevented');
+//add content
+deleteBtn.textContent = 'delete';
+bookName.textContent = value;
+
+//add classes
+bookName.classList.add('name');
+deleteBtn.classList.add('delete');
+
+    //append to document
+li.appendChild(bookName);
+li.appendChild(deleteBtn);
+list.appendChild(li);
 
 });
-
-
-
